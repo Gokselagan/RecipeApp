@@ -7,11 +7,12 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CreateIcon from '@mui/icons-material/Create';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+interface NavbarProps {
+    isSignedIn: boolean;
+    setIsSignedIn(isSignedIn: boolean): void;
+}
 
-
-export const Navbar = ({ isSignedIn, setIsSignedIn }) => {
-
-
+export const Navbar = ({ isSignedIn, setIsSignedIn }: NavbarProps) => {
 
     const handleClick = () => {
         setIsSignedIn(!isSignedIn);
@@ -28,7 +29,7 @@ export const Navbar = ({ isSignedIn, setIsSignedIn }) => {
                                 <HomeIcon sx={{ ml: 5 }} />
                                 <Button size="small" component={Link} to="/">
                                     <Typography
-                                    color="white">Home Page</Typography>
+                                        color="white">Home Page</Typography>
                                 </Button>
                             </Stack>
                         </Typography>
@@ -54,7 +55,7 @@ export const Navbar = ({ isSignedIn, setIsSignedIn }) => {
                                 <HomeIcon sx={{ ml: 5 }} />
                                 <Button component={Link} size="small" to="/">
                                     <Typography
-                                    color="white">Home Page</Typography>
+                                        color="white">Home Page</Typography>
                                 </Button>
                             </Stack>
                         </Typography>
@@ -97,7 +98,6 @@ export const Navbar = ({ isSignedIn, setIsSignedIn }) => {
                             </Typography>
                         </Stack>
                     </Toolbar>
-
                 }
             </AppBar>
         </Box>

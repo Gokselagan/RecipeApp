@@ -2,37 +2,43 @@ import { useForm } from "react-hook-form";
 import { Link, unstable_HistoryRouter } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Box, Container, Grid, TextField, Typography, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControlLabel, Button, Snackbar } from "@mui/material";
+import { Box, Container, Grid, TextField, Typography, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControlLabel, Button, Snackbar, FormHelperText } from "@mui/material";
+import { useState } from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 
+interface RegistrationFormProps {
+	open: boolean;
+	setOpen(open: boolean): void;
+	firstName: string;
+	lastName: string;
+	email: string;
+	password: string;
+}
 
 export const RegistrationForm = () => {
 
-	const [open, setOpen] =React.useState(false);
+	const [open, setOpen] = useState(false);
+
+	const [showPassword, setShowPassword] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset
-	} = useForm();
+	} = useForm<RegistrationFormProps>();
 
-
-	const onSubmit = (data) => {	
+	const onSubmit = (data: RegistrationFormProps) => {
 		console.log(data);
 		reset();
 		setOpen(true);
 	}
 
-	const [showPassword, setShowPassword] =React.useState(false);
-
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
 
 	return (
-
 		<Container component="main" maxWidth="xs">
 			<Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 				<Avatar sx={{ mt: 8, bgcolor: "primary.main" }}>
@@ -47,7 +53,6 @@ export const RegistrationForm = () => {
 							<TextField
 								required
 								fullWidth
-								name="firstName"
 								id="firstName"
 								label="First Name"
 								{...register("firstName")}
@@ -58,7 +63,6 @@ export const RegistrationForm = () => {
 							<TextField
 								required
 								fullWidth
-								name="lastName"
 								id="lastName"
 								label="Last Name"
 								{...register("lastName")}
@@ -69,7 +73,6 @@ export const RegistrationForm = () => {
 							<TextField
 								required
 								fullWidth
-								name="email"
 								id="email"
 								label="Email Adress"
 								type="email"
@@ -92,8 +95,6 @@ export const RegistrationForm = () => {
 								size='medium'
 								fullWidth
 								error={!!errors.password}
-								helperText={errors.password ? errors.password.message : ''}
-
 							>
 								<InputLabel htmlFor="password">Password</InputLabel>
 								<OutlinedInput
@@ -122,11 +123,7 @@ export const RegistrationForm = () => {
 										}
 									})}
 								/>
-								{errors.password && (
-									<Typography variant="body2" color="error">
-										{errors.password.message}
-									</Typography>
-								)}
+								<FormHelperText>{errors.password ? errors.password.message : ''}</FormHelperText>
 							</FormControl>
 						</Grid>
 
@@ -145,20 +142,20 @@ export const RegistrationForm = () => {
 						sx={{ mt: 3, mb: 2 }}>
 						Sign Up
 					</Button>
-					<Snackbar 
-					message="Registration is successfully! Now you can go to the Login page"
-					autoHideDuration={4000}
-					open={open}
-					action={
-						<Button size="small">
-							<Link to="/user/login">Log In</Link>
-						</Button>
-					}
-					anchorOrigin={{
-						vertical:"top",
-						horizontal:"center"
-					}}
-					sx={{top:{xs:50, sm:30}}}
+					<Snackbar
+						message="Registration is successfully! Now you can go to the Login page"
+						autoHideDuration={4000}
+						open={open}
+						action={
+							<Button size="small">
+								<Link to="/user/login">Log In</Link>
+							</Button>
+						}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "center"
+						}}
+						sx={{ top: { xs: 50, sm: 30 } }}
 					/>
 
 					<Grid container justifyContent="flex-end">
@@ -169,7 +166,5 @@ export const RegistrationForm = () => {
 				</Box>
 			</Box>
 		</Container>
-
-
 	);
 };
