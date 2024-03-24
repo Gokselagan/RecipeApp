@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 import { CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
-
-import "./styles.css"
+import { useSelector } from 'react-redux';
 import { Recipe } from '../models';
 
-interface RecipeListProps {
-    recipes : Recipe[];
-}
+import "./styles.css"
 
-export const RecipeList = ({ recipes }:RecipeListProps) => {
 
+
+export const RecipeList = () => {
+    const recipes = useSelector((state: {recipes:Recipe[]})=> state.recipes);
 
     return (
 

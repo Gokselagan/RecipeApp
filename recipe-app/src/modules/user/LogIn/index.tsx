@@ -6,26 +6,25 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { DataProps } from '../models';
+import { RegistrationFormProps } from '../models';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { toggleSignIn } from '../userSlice';
 
-interface LogInProps {
-    isSignedIn: boolean;
-    setIsSignedIn(isSignedIn: boolean): void;
-}
+export const LogIn = () => {
 
-export const LogIn = ({ isSignedIn, setIsSignedIn }: LogInProps) => {
+    const dispatch = useDispatch();
 
     const {
         register,
         handleSubmit,
-    } = useForm<DataProps>();
+    } = useForm<RegistrationFormProps>();
 
     const navigate = useNavigate();
 
-    const onSubmit = (data: DataProps) => {
+    const onSubmit = (data: RegistrationFormProps) => {
         console.log(data);
-        setIsSignedIn(!isSignedIn);
+        dispatch(toggleSignIn());
         navigate("/");
     }
 

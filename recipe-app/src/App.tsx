@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { AppRouter } from './AppRouter';
 import { Navbar } from './components/Navbar';
-import { Recipe } from './modules/recipes/models';
+import { useDispatch } from 'react-redux';
+import { updateRecipes } from './modules/recipes/recipesSlice';
 
 export const App = () => {
-	const [recipes, setRecipes] = useState<Recipe[]>([]);
-	const [isSignedIn, setIsSignedIn] = useState<boolean>(true);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const DB_URL =
@@ -13,15 +13,15 @@ export const App = () => {
 		fetch(DB_URL)
 			.then((data) => data.json())
 			.then((recipeData) =>
-				setRecipes(recipeData.meals)
+				dispatch(updateRecipes(recipeData.meals))
 			);
 	}, []);
 
 	return (
 		<>
-			<Navbar setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
+			<Navbar  />
 			<div className="app-container" >
-				<AppRouter recipes={recipes} setRecipes={setRecipes} setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
+				<AppRouter />
 			</div>
 		</>
 	);

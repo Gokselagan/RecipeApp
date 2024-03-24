@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Stack } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import { Recipe } from '../models';
+import { useDispatch } from 'react-redux';
+import { updateRecipes } from '../recipesSlice';
 
-interface SearchBarProps {
-	
-	setRecipes(recipes : Recipe[]):void;
-}
 
-export const SearchBar = ({ setRecipes }:SearchBarProps) => {
+
+export const SearchBar = () => {
+
+	const dispatch = useDispatch();
+
+
 	const [mainIngredient, setMainIngredient] = useState<string>('');
 	const [inputError, setInputError] = useState<string|null>(null);
 	const [searchError, setSearchError] = useState<string|null>(null);
@@ -24,7 +26,7 @@ export const SearchBar = ({ setRecipes }:SearchBarProps) => {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.meals && data.meals.length > 0) {
-					setRecipes(data.meals);
+					dispatch(updateRecipes(data.meals));
 					setSearchError(null);
 				} else {
 					setSearchError(

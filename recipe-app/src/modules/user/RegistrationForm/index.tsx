@@ -7,15 +7,7 @@ import { useState } from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Checkbox from '@mui/material/Checkbox';
-
-interface RegistrationFormProps {
-	open: boolean;
-	setOpen(open: boolean): void;
-	firstName: string;
-	lastName: string;
-	email: string;
-	password: string;
-}
+import { RegistrationFormProps } from "../models";
 
 export const RegistrationForm = () => {
 

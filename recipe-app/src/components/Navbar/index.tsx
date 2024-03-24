@@ -6,16 +6,19 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CreateIcon from '@mui/icons-material/Create';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSignIn } from "../../modules/user/userSlice";
 
-interface NavbarProps {
-    isSignedIn: boolean;
-    setIsSignedIn(isSignedIn: boolean): void;
-}
 
-export const Navbar = ({ isSignedIn, setIsSignedIn }: NavbarProps) => {
+
+
+export const Navbar = () => {
+
+    const dispatch = useDispatch();
+    const isSignedIn = useSelector((state)=>(state as any).user.isSignedIn)
 
     const handleClick = () => {
-        setIsSignedIn(!isSignedIn);
+        dispatch(toggleSignIn());
     }
 
     return (
